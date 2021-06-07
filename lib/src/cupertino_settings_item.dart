@@ -166,7 +166,7 @@ class CupertinoSettingsItemState extends State<CupertinoSettingsItem> {
             value: widget.sliderValue ?? 0,
             divisions: widget.sliderDivisions,
             activeColor: widget.sliderActiveColor,
-            thumbColor: widget.sliderThumbColor ?? Colors.white,
+            thumbColor: !widget.enabled ? Colors.grey : widget.sliderThumbColor ?? Colors.white,
             min: widget.sliderMin ?? 0,
             max: widget.sliderMax ?? 1,
             onChanged: widget.sliderOnChanged,
@@ -397,10 +397,10 @@ class CupertinoSettingsItemState extends State<CupertinoSettingsItem> {
       Theme.of(context).brightness == Brightness.light
           ? pressed
               ? iosPressedTileColorLight
-              : Colors.white
+              : Colors.transparent
           : pressed
               ? iosPressedTileColorDark
-              : iosTileDarkColor;
+              : Colors.transparent;
 
   Color? _iconColor(ThemeData theme, ListTileTheme tileTheme) {
     if (tileTheme.selectedColor != null) {

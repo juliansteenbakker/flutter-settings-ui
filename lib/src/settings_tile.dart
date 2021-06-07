@@ -25,6 +25,7 @@ class SettingsTile extends StatelessWidget {
   final bool enabled;
   final TextStyle? titleTextStyle;
   final TextStyle? subtitleTextStyle;
+  final Color? color;
   final Color? switchActiveColor;
   final _SettingsTileType _tileType;
 
@@ -64,6 +65,7 @@ class SettingsTile extends StatelessWidget {
     this.sliderDivisions,
     this.sliderActiveColor,
     this.sliderThumbColor,
+    this.color
   })  : _tileType = _SettingsTileType.simple,
         onToggle = null,
         switchValue = null,
@@ -94,6 +96,7 @@ class SettingsTile extends StatelessWidget {
     this.sliderDivisions,
     this.sliderActiveColor,
     this.sliderThumbColor,
+    this.color
   })  : _tileType = _SettingsTileType.switchTile,
         onTap = null,
         onPressed = null,
@@ -126,6 +129,7 @@ class SettingsTile extends StatelessWidget {
     this.sliderDivisions,
     this.sliderActiveColor,
     this.sliderThumbColor,
+    this.color
   })  : _tileType = _SettingsTileType.sliderTile,
         onTap = null,
         onPressed = null,
@@ -215,6 +219,7 @@ class SettingsTile extends StatelessWidget {
       return SwitchListTile(
         secondary: leading,
         value: switchValue!,
+        tileColor: switchValue! ? Colors.yellow : null,
         activeColor: switchActiveColor,
         onChanged: enabled ? onToggle : null,
         title: Text(
@@ -247,6 +252,7 @@ class SettingsTile extends StatelessWidget {
               ),
             ),
             ListTile(
+              tileColor: Colors.yellow ,
               title: Slider(
                 value: sliderValue ?? 0,
                 min: sliderMin ?? 0,
@@ -281,6 +287,7 @@ class SettingsTile extends StatelessWidget {
     } else {
       return ListTile(
         title: Text(title, style: titleTextStyle),
+        tileColor: Colors.yellow,
         subtitle: subtitle != null
             ? Text(
                 subtitle!,

@@ -11,6 +11,7 @@ class CupertinoSettingsSection extends StatelessWidget {
     this.header,
     this.headerPadding = defaultTitlePadding,
     this.footer,
+        this.color,
   });
 
   final List<Widget> items;
@@ -18,6 +19,7 @@ class CupertinoSettingsSection extends StatelessWidget {
   final Widget? header;
   final EdgeInsetsGeometry headerPadding;
   final Widget? footer;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -42,16 +44,55 @@ class CupertinoSettingsSection extends StatelessWidget {
       final leftPadding =
           (items[i] as SettingsTile).leading == null ? 15.0 : 54.0;
       if (i < items.length - 1) {
-        itemsWithDividers.add(items[i]);
+        if (i == 0) {
+          itemsWithDividers.add(Container(
+            decoration: BoxDecoration(
+                borderRadius:
+                true ? BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)) : null,
+                color: (items[i] as SettingsTile).color
+              // color: calculateBackgroundColor(context),
+            ),
+            child: items[i],
+          ));
+          itemsWithDividers.add(Divider(
+            height: 0.3,
+            color: Colors.grey.shade400,
+            indent: leftPadding,
+          ));
+          continue;
+        }
+
+        itemsWithDividers.add(Container(
+          color: (items[i] as SettingsTile).color,
+          child: items[i],
+        ));
         itemsWithDividers.add(Divider(
           height: 0.3,
           color: Colors.grey.shade400,
           indent: leftPadding,
         ));
       } else {
-        itemsWithDividers.add(items[i]);
+        itemsWithDividers.add(Container(
+          decoration: BoxDecoration(
+              borderRadius:
+              true ? BorderRadius.only(bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20)) : null,
+              color: (items[i] as SettingsTile).color
+            // color: calculateBackgroundColor(context),
+          ),
+          child: items[i],
+        ));
+        // itemsWithDividers.add(items[i]);
       }
     }
+
+    // Color calculateBackgroundColor(BuildContext context) =>
+    //     Theme.of(context).brightness == Brightness.light
+    //         ? pressed
+    //         ? iosPressedTileColorLight
+    //         : Colors.transparent
+    //         : pressed
+    //         ? iosPressedTileColorDark
+    //         : Colors.transparent;
 
     bool largeScreen = MediaQuery.of(context).size.width >= 768 ? true : false;
 
